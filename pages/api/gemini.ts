@@ -12,6 +12,20 @@ type GeminiRequest = {
     }>;
 };
 
+export const config = {
+    api: {
+        bodyParser: {
+            sizeLimit: '10mb'
+        },
+        responseLimit: false,
+    },
+    experimental: {
+        serverActions: {
+            bodySizeLimit: '10mb',
+        }
+    }
+}
+
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
