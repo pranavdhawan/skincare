@@ -65,21 +65,40 @@ Use a tone that’s chill, confidence-boosting, and beginner-friendly. Don’t o
 
         // const result = await gemini.generateContent([prompt, ...imageFiles]);
 
-        const result = await gemini.models.generateContent({
-            model: 'gemini-1.5-flash',
-            contents: [
-                {
-                    role: "user",
-                    parts: [
-                        { text: prompt },
-                        ...imageFiles
-                    ]
-                }
-            ],
-        })
+        const response = await fetch('/api/gemini', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                prompt,
+                // images: imageFiles.map((file) => file.inlineData.data)
+                images: imageFiles
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Error analyzing skin images');
+        }
+
+        const result = await response.json();
+        const text = result.candidates[0].content.parts[0].text;
+
+        // const result = await gemini.models.generateContent({
+        //     model: 'gemini-1.5-flash',
+        //     contents: [
+        //         {
+        //             role: "user",
+        //             parts: [
+        //                 { text: prompt },
+        //                 ...imageFiles
+        //             ]
+        //         }
+        //     ],
+        // })
 
         // const response = await result.response;
-        const text = await result.text;
+        // const text = await result.text;
         const [analysis, productsJson] = separateAnalysisAndProducts(text!);
         const prodcuts = parseProducts(productsJson)
         console.log(productsJson);
