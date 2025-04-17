@@ -2,7 +2,7 @@
 # skincare
 AI based skin analysis and skin care aid
 =======
-[https://skincare-kohl.vercel.app/]([https://nextjs.org](https://skincare-kohl.vercel.app/))
+[https://skincare-kohl.vercel.app/](https://skincare-kohl.vercel.app/)
 
 ## Getting Started
 
